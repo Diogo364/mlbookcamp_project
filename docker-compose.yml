@@ -1,0 +1,34 @@
+# -*- coding: utf-8 -*-
+# @Author: Diogo Telheiro do Nascimento
+# @Date:   2022-03-15 20:18:55
+# @Last Modified by:   Diogo Telheiro do Nascimento
+# @Last Modified time: 2022-03-20 14:29:18
+version: '3.4'
+
+services:
+  myenv:
+    build:
+      context: ./Dockerfile
+      dockerfile: ${DOCKERFILE}
+      args:
+        USERNAME: ${UNAME}
+        USER_UID: ${USER_UID}
+        USER_GID: ${USER_GID}
+    image: ${IMAGE_NAME}:latest
+    
+    user: "${USER_UID}:${USER_GID}"
+    volumes:
+      - .:/workspace
+      
+      - ${DATASET}:/dataset
+      
+      - type: bind
+        source: ${GITCONFIG}
+        target: /home/${UNAME}/.gitconfig
+        volume: 
+          nocopy: true
+        read_only: true
+      
+    working_dir: ${WORKDIR}
+    
+    command: /bin/bash -c "while sleep 1000; do :; done"

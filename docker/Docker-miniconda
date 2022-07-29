@@ -1,0 +1,56 @@
+FROM continuumio/miniconda3:4.10.3p1
+
+ARG USERNAME=conda-docker
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+RUN apt-get update && apt-get upgrade -y
+
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && mkdir /etc/sudoers.d \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+RUN apt-get install -y \
+        sudo \
+        build-essential \
+        cmake \
+        git \
+        wget \
+        unzip \
+        yasm \
+        pkg-config \
+        libswscale-dev \
+        libtbb2 \
+        libtbb-dev \
+        libjpeg-dev \
+        libpng-dev \
+        libtiff-dev \
+        libavformat-dev \
+        libhdf5-dev \
+        libpq-dev
+
+RUN mkdir /workspace
+WORKDIR /workspace
+RUN mkdir /dataset && chmod -R 777 /dataset
+
+USER ${USERNAME}
+
+ENV SHELL=/bin/bash
+ENV HOME="/home/${USERNAME}"
+ENV PATH="$PATH:${HOME}/.local/bin"
+
+ENV CONDA_ENVS_PATH="${HOME}/conda/envs"
+ENV CONDA_PKGS_DIRS="${HOME}/conda/pkgs"
+ENV CONDA_DEFAULT_ENV=general-conda
+
+COPY resources/conda.yml /tmp/conda.yml
+RUN conda env create -f /tmp/conda.yml
+
+ENV CONDA_PREFIX=${CONDA_ENVS_PATH}/$CONDA_DEFAULT_ENV
+ENV PATH="${CONDA_PREFIX}/bin:$PATH"
+
+RUN echo "source activate ${CONDA_DEFAULT_ENV}" > ~/.bashrc
+
+CMD [ "/bin/bash" ]
