@@ -15,13 +15,13 @@ services:
         USER_UID: ${USER_UID}
         USER_GID: ${USER_GID}
     image: ${IMAGE_NAME}:latest
-    
+    ports:
+      - "8000:8000"
     user: "${USER_UID}:${USER_GID}"
+    environment:
+      - JUPYTER_TOKEN=${JUPYTER_TOKEN}
     volumes:
       - .:/workspace
-      
-      - ${DATASET}:/dataset
-      
       - type: bind
         source: ${GITCONFIG}
         target: /home/${UNAME}/.gitconfig
@@ -31,4 +31,4 @@ services:
       
     working_dir: ${WORKDIR}
     
-    command: /bin/bash -c "while sleep 1000; do :; done"
+    command: jupyter notebook --ip=0.0.0.0 --port=8000
