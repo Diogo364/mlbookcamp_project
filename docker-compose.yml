@@ -8,7 +8,7 @@ version: '3.4'
 services:
   myenv:
     build:
-      context: ./Dockerfile
+      context: ./docker/
       dockerfile: ${DOCKERFILE}
       args:
         USERNAME: ${UNAME}
