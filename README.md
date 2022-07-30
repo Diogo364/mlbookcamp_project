@@ -23,7 +23,7 @@ Choose one of the following environment instructions below to build all dependen
 ### Conda
 All requiments needed to run the project might be found within the `docker/resources/conda.yml` file, which might be used to build a conda environment easily through the command:
 ```
-$ conda env create -f docker/resources/conda.yml
+conda env create -f docker/resources/conda.yml
 ```
 > **Obs:** Conda or Miniconda are required for this setup.
 
@@ -35,20 +35,16 @@ It is also possible to run the project through a local Jupyter Notebook by using
 
 2. Build the Docker Image by running the command:
     ```
-    $ docker-compose build
+    docker-compose build
     ```
 
 3. Run the Docker container in detached mode by running:
     ``` 
-    $ docker-compose up -d
+    docker-compose up -d
     ```
 4. Verify if your container is running through the command below:
     ```
-    $ docker ps
-
-    # You should see an output like this:
-    CONTAINER ID   IMAGE                     COMMAND                  CREATED         STATUS         PORTS                                       NAMES
-    03ca4cdb7893   miniconda-docker:latest   "jupyter notebook --…"   3 minutes ago   Up 3 minutes   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   mlbookcamp_project_myenv_1
+    docker ps
     ```
     > Note: You should see an output like this:
     ```
