@@ -29,7 +29,8 @@ RUN apt-get install -y \
         libtiff-dev \
         libavformat-dev \
         libhdf5-dev \
-        libpq-dev
+        libpq-dev \
+        lsof
 
 RUN mkdir /workspace
 WORKDIR /workspace
