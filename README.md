@@ -59,3 +59,4 @@ After this last step you should be able to access a local instance of Jupyter No
 
 ## References
 - mlbookcamp-code: https://github.com/alexeygrigorev/mlbookcamp-code/
+- mlbookcamp-code 2022 Cohort: https://github.com/alexeygrigorev/mlbookcamp-code/blob/master/course-zoomcamp/cohorts/2022
