@@ -12,4 +12,5 @@ The `questions.sh` shellscript does all the work:
 - `Python`
 - `wget`
 - `lsof`
+- `Docker`
  > **Obs:** All these requirements are already available within the Docker-miniconda Image.
