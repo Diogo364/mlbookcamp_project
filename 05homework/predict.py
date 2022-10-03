@@ -20,12 +20,12 @@ def main(customer_information: typing.IO, url: str):
         model = load_pickle('./resources/model1.bin')
         
         customer_process = dv.transform(customer_information)    
-        churn_proba = model.predict_proba(customer_process)[:, 1]
+        predict_proba = model.predict_proba(customer_process)[:, 1]
     else:
-        churn_info = requests.post(url, json=customer_information).json()
-        churn_proba = churn_info['proba']
+        predict_info = requests.post(url, json=customer_information).json()
+        predict_proba = predict_info['proba']
     
-    print("Churn" if churn_proba > 0.5 else "Not Churn")
+    print(f"Got Credit Card: {predict_proba}" if predict_proba > 0.5 else f"Didn't got Credit Card: {predict_proba}")
 
 if __name__ == '__main__':
     main()

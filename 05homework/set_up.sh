@@ -6,8 +6,8 @@ pip install pipenv
 wait
 
 echo "Using pipenv to install python libs"
-pipenv install --python 3.8 
-pipenv install numpy scikit-learn==1.0 flask gunicorn click requests
+pipenv install --python 3.9
+pipenv install numpy scikit-learn==1.0.2 flask gunicorn click requests
 
 if [ ! -d ./resources ]; then
     echo "Creating ./resources directory"
@@ -15,8 +15,8 @@ if [ ! -d ./resources ]; then
 fi
 
 echo "Downloading resources if needed"
-REPO=https://raw.githubusercontent.com/alexeygrigorev/mlbookcamp-code/master/course-zoomcamp/05-deployment/homework
-
+REPO=https://raw.githubusercontent.com/alexeygrigorev/mlbookcamp-code/master/course-zoomcamp/cohorts/2022/05-deployment/homework
+     
 if [ ! -f ./resources/dv.bin ]; then
     echo "Downloading DictVectorizer"
     wget $REPO/dv.bin -P ./resources
